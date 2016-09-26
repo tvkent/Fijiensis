@@ -9,16 +9,40 @@ pops=(oldworld newworld)
 for pop in '$pops[@]'
 do
 
-${scripts}/find_confs.bash
+echo "Beginning find_confs" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
+${scripts}/find_confs.bash ${results}/${pop}.conf ${data}/${pop}.fastq >> ${stdout}/${pop}.out 2>> ${stdout}${pop}.err
+echo "find_confs finished" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
 
-${scripts}/table_gen.bash
+echo "Beginning table_gen" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
+${scripts}/table_gen.bash ${results}/${pop}.conf ${results}/${pop}.lk >> ${stdout}/${pop}.out 2>> ${stdout}${pop}.err
+echo "table_gen finished" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
 
-${scripts/pade.bash
+echo "Beginning pade" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
+${scripts}/pade.bash ${results}/${pop}.conf ${results}/${pop}.pade >> ${stdout}/${pop}.out 2>> ${stdout}${pop}.err
+echo "pade finished" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
 
-${scripts}/rjmcmc.bash
+echo "Beginning rjmcmc" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
+${scripts}/rjmcmc.bash ${results}/${pop}.lk ${results}/${pop}.pade ${data}/${pop}.fastq ${results}/${pop}.post >> ${stdout}/${pop}.out 2>> ${stdout}${pop}.err
+echo "rjmcmc finished" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
 
-${scripts}/post_to_text.bash
+echo "Beginning post_to_text" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
+${scripts}/post_to_text.bash ${results}/${pop}.out.txt ${results}/${pop}.post >> ${stdout}/${pop}.out 2>> ${stdout}${pop}.err
+echo "post_to_text finished" >> ${stdout}/${pop}.out
+echo date >> ${stdout}/${pop}.out
 
-${scripts}/max_lk.bash
+#echo "Beginning max_lk" >> ${stdout}/${pop}.out
+#echo date >> ${stdout}/${pop}.out
+#${scripts}/max_lk.bash ${results}/${pop}.lk ${pop}.post ${data}/${pop}.fastq >> ${stdout}/${pop}.out 2>> ${stdout}${pop}.err 
+#echo "max_lk finished" >> ${stdout}/${pop}.out
+#echo date >> ${stdout}/${pop}.out
 
 done
