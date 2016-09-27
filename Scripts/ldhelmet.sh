@@ -9,7 +9,7 @@ pops=(oldworld newworld)
 for pop in "${pops[@]}"
 do
 
-seq=/cap1/tyler.kent/Recombination/Fijiensis/Data/${pop}_indiv_n.filtered.scaffold_1.ldhelment.snps
+seq=/cap1/tyler.kent/Recombination/Fijiensis/Data/${pop}_indiv_n.filtered.scaffold_1.ldhelmet.snps
 echo "Beginning find_confs" >> ${stdout}/${pop}.out
 echo date >> ${stdout}/${pop}.out
 bash ${scripts}/find_confs.bash ${results}/${pop}.conf ${seq} >> ${stdout}/${pop}.out 2>> ${stdout}/${pop}.err
